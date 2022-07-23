@@ -21,7 +21,7 @@ import { ref } from 'vue'
 })
 export default class HomeView extends Vue {
   private context = setup(() => {
-    const title = ref<string>('Login View')
+    const title = ref<string>('Login (work in progress)')
 
     return { title }
   })

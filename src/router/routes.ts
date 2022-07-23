@@ -14,6 +14,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'login',
     component: Login
   },
+
   //Module Routes
   ...PokemonRoutes
 ]
