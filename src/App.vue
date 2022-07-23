@@ -1,7 +1,8 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link :to="{ name: 'login' }">Login</router-link> /
+    <router-link to="/">Home</router-link> /
+    <router-link :to="{ name: 'pokemons' }">Pokemons Module</router-link>
   </nav>
   <router-view/>
 </template>
