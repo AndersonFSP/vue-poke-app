@@ -11,14 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: npm i && npm run build
-      - uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_VUE_POKE_APP }}'
-          channelId: live
-          projectId: vue-poke-app
-        env:
+      env:
           VUE_APP_FIREBASE_APIID: ${{ secrets.VUE_APP_FIREBASE_APIID }}
           VUE_APP_FIREBASE_APIKEY: ${{ secrets.VUE_APP_FIREBASE_APIKEY }}
           VUE_APP_FIREBASE_AUTHDOMAIN: ${{ secrets.VUE_APP_FIREBASE_AUTHDOMAIN }}
@@ -26,3 +19,10 @@ jobs:
           VUE_APP_FIREBASE_APIID: ${{ secrets.VUE_APP_FIREBASE_MESSAGINGSENDERID }}
           VUE_APP_FIREBASE_APIID: ${{ secrets.VUE_APP_FIREBASE_PROJECTID }}
           VUE_APP_FIREBASE_APIID: ${{ secrets.VUE_APP_FIREBASE_STORAGEBUCKET }}
+      - run: npm i && npm run build
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_VUE_POKE_APP }}'
+          channelId: live
+          projectId: vue-poke-app
