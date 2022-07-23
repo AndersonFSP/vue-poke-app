@@ -2,10 +2,10 @@
   <form class="home">
     <h1>{{ context.title }}</h1>
     <div>
-      <input type="email" name="" id="">
-      <input type="password" name="" id="">
+      <input type="email" id="email" >
+      <input type="password" id="password" autocomplete="">
     </div>
-    <input type="submit" value="">
+    <input type="submit" value="enviar">
   </form>
 </template>
 
