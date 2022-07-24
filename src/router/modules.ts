@@ -1,6 +1,7 @@
 import { RouteRecordRaw } from 'vue-router'
 import HomeView from '@/pages/HomeView.vue'
 import Login from '@/pages/Login.vue'
+import Register from '@/pages/Register.vue'
 import { PokemonRoutes } from '@/modules/pokemon/routes'
 
 const routes: Array<RouteRecordRaw> = [
@@ -13,6 +14,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/login',
     name: 'login',
     component: Login
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: Register
   },
 
   //Module Routes
