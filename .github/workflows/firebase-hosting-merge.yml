@@ -11,12 +11,22 @@ env:
   VUE_APP_FIREBASE_MESSAGINGSENDERID: ${{ secrets.VUE_APP_FIREBASE_MESSAGINGSENDERID }}
   VUE_APP_FIREBASE_MEASUREMENTID: ${{ secrets.VUE_APP_FIREBASE_MEASUREMENTID }}
   VUE_APP_FIREBASE_APIID: ${{ secrets.VUE_APP_FIREBASE_APIID }}
+
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [>=16.15.1]
+
     steps:
       - uses: actions/checkout@v2
-  
+
+      - name: Node.js ${{ matrix.node-version}}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
       - name: Install dependencies
         run: npm i
 
