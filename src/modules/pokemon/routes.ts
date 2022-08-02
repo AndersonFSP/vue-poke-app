@@ -6,6 +6,9 @@ export const PokemonRoutes: RouteRecordRaw[] = [
   {
     path: '/pokemons',
     component: PokemonModule,
+    meta: {
+      requiresAuth: true
+    },
     children: [
       {
         path: '',

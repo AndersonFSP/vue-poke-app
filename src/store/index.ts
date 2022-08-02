@@ -1,7 +1,7 @@
 import { IState } from './types'
 import { createStore, Store, useStore as VuexUseStore } from 'vuex'
 import { InjectionKey } from 'vue'
-import { authentication } from '@/store/modules/authentication'
+import modules from '@/store/modules'
 
 export const key: InjectionKey<Store<IState>> = Symbol()
 
@@ -17,9 +17,7 @@ export const store = createStore<IState>({
   // },
   // actions: {
   // },
-  modules: {
-    authentication
-  }
+  modules
 })
 
 export const useStore = (): Store<IState> => VuexUseStore(key)

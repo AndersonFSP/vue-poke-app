@@ -1,0 +1,23 @@
+import { RouteRecordRaw } from 'vue-router'
+import AuthenticationModule from './AuthenticationModule.vue'
+import Login from '@/modules/authentication/pages/Login.vue'
+import Register from '@/modules/authentication/pages/Register.vue'
+
+export const AuthenticationRoutes: RouteRecordRaw[] = [
+  {
+    path: '/authentication/',
+    component: AuthenticationModule,
+    children: [
+      {
+        path: 'login',
+        name: 'login',
+        component: Login,
+      },
+      {
+        path: 'register',
+        name: 'register',
+        component: Register,
+      },
+    ]
+  }
+]
