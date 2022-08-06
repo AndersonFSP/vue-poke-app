@@ -1,5 +1,5 @@
 import { Module } from "vuex"
-import { signInWithEmailAndPassword } from 'firebase/auth'
+import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
 import { firebaseAuth } from '@/firebase'
 import { IState } from '@/store/types'
 import { 
@@ -18,14 +18,15 @@ export const authentication: Module<IAuthenticationState, IState> = {
   },
 
   actions: {
+    async [AuthenticationAction.LOGIN_WITH_GOOGLE]({ commit }) {
+      const provider = new GoogleAuthProvider()
+      await signInWithPopup(firebaseAuth, provider)
+      commit(AuthenticationMutation.TOGGLE_AUTH)
+    },
     async [AuthenticationAction.LOGIN]({ commit }, { email, password }: IUser) {
-      try {
-        const user = await signInWithEmailAndPassword(firebaseAuth, email, password)
-        console.log(user)
-        commit(AuthenticationMutation.TOGGLE_AUTH)
-      } catch (error) {
-        console.error(error)
-      }
+      const user = await signInWithEmailAndPassword(firebaseAuth, email, password)
+      console.log(user)
+      commit(AuthenticationMutation.TOGGLE_AUTH)
     },
     async [AuthenticationAction.VERIFY_IF_IS_LOGGED]({ commit }) {
       const user = firebaseAuth.currentUser

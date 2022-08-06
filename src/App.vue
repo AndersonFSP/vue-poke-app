@@ -16,7 +16,8 @@ import { Options, setup, Vue } from 'vue-class-component'
 import { computed } from 'vue'
 import { useStore } from '@/store'
 import { ModuleName } from '@/store/types'
-import { AuthenticationAction } from '@/store/modules/types'
+import { AuthenticationAction } from '@/modules/authentication/store/types'
+
 
 @Options({})
 export default class App extends Vue {

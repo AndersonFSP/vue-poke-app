@@ -1,6 +1,6 @@
 import { RouteRecordRaw } from 'vue-router'
 import AuthenticationModule from './AuthenticationModule.vue'
-import Login from '@/modules/authentication/pages/Login.vue'
+import Login from '@/modules/authentication/pages/login/Login.vue'
 import Register from '@/modules/authentication/pages/Register.vue'
 
 export const AuthenticationRoutes: RouteRecordRaw[] = [
