@@ -8,8 +8,6 @@ import { Options, Vue, setup } from 'vue-class-component'
 @Options({})
 export default class HomeView extends Vue {
   private context = setup(() => {
-    const msg = 'Load componente Authentication'
-    console.log(msg)
     return {}
   })
 }

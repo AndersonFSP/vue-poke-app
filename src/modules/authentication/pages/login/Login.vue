@@ -32,10 +32,8 @@
 <script lang="ts">
 import { Options, setup, Vue } from 'vue-class-component'
 import { ref, computed } from 'vue'
-import { useStore } from '@/store'
-import { AuthenticationAction } from '@/modules/authentication/store/types'
+import { useAuthenticationStore } from '@/modules/authentication/store'
 import { useRouter } from 'vue-router'
-import { ModuleName } from '@/store/types'
 import Input from '@/components/Input.vue'
 import Button from '@/components/Button.vue'
 import GoogleLogin from '@/modules/authentication/components/GoogleLogin.vue'
@@ -54,7 +52,7 @@ enum StatusType {
 })
 export default class HomeView extends Vue {
   private context = setup(() => {
-    const store = useStore()
+    const store = useAuthenticationStore()
     const router = useRouter()
     
     const email = ref<string>('')
@@ -64,10 +62,7 @@ export default class HomeView extends Vue {
 
     const login = async ():Promise<void> => {
       try {
-        await store.dispatch(`${ModuleName.Authentication}/${AuthenticationAction.LOGIN}`, { 
-          email: email.value, 
-          password: password.value
-        })
+        await store.login(email.value, password.value)
         router.push({ name: 'home' })
       } catch (error) {
         loginError.value = true
