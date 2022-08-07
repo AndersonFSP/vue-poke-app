@@ -14,18 +14,15 @@
 <script lang="ts">
 import { Options, setup, Vue } from 'vue-class-component'
 import { computed } from 'vue'
-import { useStore } from '@/store'
-import { ModuleName } from '@/store/types'
-import { AuthenticationAction } from '@/modules/authentication/store/types'
-
+import { useAuthenticationStore } from '@/modules/authentication/store'
 
 @Options({})
 export default class App extends Vue {
   private context = setup(() => {
-    const store = useStore()
-
-    store.dispatch(`${ModuleName.Authentication}/${AuthenticationAction.VERIFY_IF_IS_LOGGED}`)
-    const isUserLogged = computed(() => store.state[ModuleName.Authentication].isUserLogged)
+    const store = useAuthenticationStore()
+    
+    store.verifyIfIsLogged()
+    const isUserLogged = computed(() => store.isUserLogged)
 
     return {
       store,
@@ -36,30 +33,10 @@ export default class App extends Vue {
 </script>
 
 <style lang="less">
-// #app {
-//   -webkit-font-smoothing: antialiased;
-//   -moz-osx-font-smoothing: grayscale;
-//   text-align: center;
-//   color: #2c3e50;
-// }
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: Avenir, Helvetica, Arial, sans-serif;
 }
-
-// nav {
-//   padding: 30px;
-
-//   a {
-//     font-weight: bold;
-//     color: #2c3e50;
-
-//     &.router-link-exact-active {
-//       color: #42b983;
-//     }
-//   }
-// }
 </style>

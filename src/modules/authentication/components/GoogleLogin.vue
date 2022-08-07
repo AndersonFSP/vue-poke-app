@@ -5,21 +5,19 @@
 </template>
 
 <script lang="ts">
-import { AuthenticationAction } from '@/modules/authentication/store/types'
-import { useStore } from '@/store'
-import { ModuleName } from '@/store/types'
+import { useAuthenticationStore } from '@/modules/authentication/store'
 import { Options, Vue, setup } from 'vue-class-component'
 import { useRouter } from 'vue-router'
 
 @Options({})
 export default class GoogleButton extends Vue {
   private context = setup(() => {
-    const store = useStore()
+    const store = useAuthenticationStore()
     const router = useRouter()
 
     const loginWithGoogle = async ():Promise<void> => {
       try {
-        await store.dispatch(`${ModuleName.Authentication}/${AuthenticationAction.LOGIN_WITH_GOOGLE}`)
+        await store.loginWithGoogle()
         router.push({ name: 'home' })
       } catch (error) {
         console.error(error)

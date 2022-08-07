@@ -9,6 +9,7 @@
       @focus="focusInput"
       @blur="blurInput"
       @input="onInput($event.target.value)"
+      autocomplete
     >
     <p v-if="hasError" class="message">{{ message }}</p>
   </label>

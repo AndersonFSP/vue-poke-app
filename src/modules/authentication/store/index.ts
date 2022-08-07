@@ -1,38 +1,32 @@
-import { Module } from "vuex"
-import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
 import { firebaseAuth } from '@/firebase'
-import { IState } from '@/store/types'
-import { 
-  IAuthenticationState, 
-  AuthenticationAction, 
-  AuthenticationMutation, 
-  IUser 
-} from './types'
+import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
+import { defineStore } from 'pinia'
+import { IAuthenticationState } from './types'
 
-export const authentication: Module<IAuthenticationState, IState> = {
-  namespaced: true,
-  mutations: {
-    [AuthenticationMutation.TOGGLE_AUTH]: (state) => {
-      state.isUserLogged = !state.isUserLogged
-    },
-  },
+export const useAuthenticationStore = defineStore('authentication', {
+  state: (): IAuthenticationState => ({
+    isUserLogged: false
+  }),
 
   actions: {
-    async [AuthenticationAction.LOGIN_WITH_GOOGLE]({ commit }) {
+    toggleAuth() {
+      this.isUserLogged = !this.isUserLogged
+    },
+
+    async loginWithGoogle(): Promise<void> {
       const provider = new GoogleAuthProvider()
       await signInWithPopup(firebaseAuth, provider)
-      commit(AuthenticationMutation.TOGGLE_AUTH)
+      this.toggleAuth() 
     },
-    async [AuthenticationAction.LOGIN]({ commit }, { email, password }: IUser) {
-      const user = await signInWithEmailAndPassword(firebaseAuth, email, password)
-      console.log(user)
-      commit(AuthenticationMutation.TOGGLE_AUTH)
+
+    async login(email: string, password: string): Promise<void> {
+      await signInWithEmailAndPassword(firebaseAuth, email, password)
+      this.toggleAuth() 
     },
-    async [AuthenticationAction.VERIFY_IF_IS_LOGGED]({ commit }) {
+
+    verifyIfIsLogged(): void {
       const user = firebaseAuth.currentUser
-      console.log(user)
-      if (user) 
-        commit(AuthenticationMutation.TOGGLE_AUTH)
+      if (user) this.toggleAuth() 
     }
-  },
-}
+  }
+})
