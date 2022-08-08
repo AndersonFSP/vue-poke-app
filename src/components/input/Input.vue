@@ -17,11 +17,8 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
+import { StatusType } from './types'
 
-enum StatusType {
-  Default = 'default',
-  Error = 'error'
-}
 
 @Options({
   props: {
