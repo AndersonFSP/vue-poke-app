@@ -1,18 +1,15 @@
 <template>
-  <button>{{ label }}</button>
+  <button>{{ props.label }}</button>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
+import { defineProps } from 'vue'
 
+interface Props {
+  label: string,
+}
 
-export default defineComponent({
-  name: 'Button',
-  props: {
-    label: String
-  }
-})
-
+const props = defineProps<Props>()
 </script>
 
 <style scoped lang="less">

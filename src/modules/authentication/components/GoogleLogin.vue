@@ -4,30 +4,21 @@
   </button>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
 import { useAuthenticationStore } from '@/modules/authentication/store'
 import { useRouter } from 'vue-router'
 
-export default defineComponent({
-  name: 'GoogleLogin',
-  setup() {
-    const store = useAuthenticationStore()
-    const router = useRouter()
+const store = useAuthenticationStore()
+const router = useRouter()
 
-    const loginWithGoogle = async ():Promise<void> => {
-      try {
-        await store.loginWithGoogle()
-        router.push({ name: 'home' })
-      } catch (error) {
-        console.error(error)
-      }
-    }
-
-    return { loginWithGoogle }
+const loginWithGoogle = async ():Promise<void> => {
+  try {
+    await store.loginWithGoogle()
+    router.push({ name: 'home' })
+  } catch (error) {
+    console.error(error)
   }
-})
-
+}
 </script>
 
 <style lang="less" scoped>
