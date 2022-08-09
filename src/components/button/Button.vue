@@ -3,16 +3,16 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component'
+import { defineComponent } from 'vue'
 
-@Options({
+
+export default defineComponent({
+  name: 'Button',
   props: {
     label: String
   }
 })
-export default class HelloWorld extends Vue {
-  label!: string
-}
+
 </script>
 
 <style scoped lang="less">

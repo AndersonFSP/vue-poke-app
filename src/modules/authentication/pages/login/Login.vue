@@ -29,56 +29,74 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
 import Input from '@/components/input/Input.vue'
-import Button from '@/components/Button.vue'
+import Button from '@/components/button/Button.vue'
 import GoogleLogin from '@/modules/authentication/components/GoogleLogin.vue'
 
-import { ref, computed } from 'vue'
+import { ref, computed, defineComponent } from 'vue'
 import { useAuthenticationStore } from '@/modules/authentication/store'
 import { useRouter } from 'vue-router'
 import { schema } from './validation'
 import { StatusType } from '@/components/input/types'
 
-const store = useAuthenticationStore()
-const router = useRouter()
+export default defineComponent({
+  name: 'Login',
+  components: {
+    Input,
+    Button,
+    GoogleLogin
+  },
+  setup() {
+    const store = useAuthenticationStore()
+    const router = useRouter()
 
-const email = ref<string>('')
-const password = ref<string>('')
-const errors = ref<string[]>([])
-const loginError = ref<boolean>(false)
+    const email = ref<string>('')
+    const password = ref<string>('')
+    const errors = ref<string[]>([])
+    const loginError = ref<boolean>(false)
 
-const login = async ():Promise<void> => {
-  try {
-    await store.login(email.value, password.value)
-    router.push({ name: 'home' })
-  } catch (error) {
-    loginError.value = true
-    console.error(error)
-  }
-}
+    const login = async ():Promise<void> => {
+      try {
+        await store.login(email.value, password.value)
+        router.push({ name: 'home' })
+      } catch (error) {
+        loginError.value = true
+        console.error(error)
+      }
+    }
 
-const submitValidation = async () =>  {
-  loginError.value = false
-  try {
-    await schema.validate({ 
-      email: email.value, 
-      password: password.value
-    }, { abortEarly: false })
-    login()
-    errors.value = []
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (err: any) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    errors.value = err.inner.map((err: any) => err.path)
-  }
-}
+    const submitValidation = async () =>  {
+      loginError.value = false
+      try {
+        await schema.validate({ 
+          email: email.value, 
+          password: password.value
+        }, { abortEarly: false })
+        login()
+        errors.value = []
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (err: any) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        errors.value = err.inner.map((err: any) => err.path)
+      }
+    }
 
-const inputStatus = computed(() => {
-  const hasError = (field: string) => (errors.value.includes(field) ? StatusType.Error : null)
-  return {
-    email: hasError('email'),
-    password: hasError('password')
+    const inputStatus = computed(() => {
+      const hasError = (field: string) => (errors.value.includes(field) ? StatusType.Error : null)
+      return {
+        email: hasError('email'),
+        password: hasError('password')
+      }
+    })
+
+    return {
+      submitValidation,
+      inputStatus,
+      email,
+      password,
+      loginError
+    }
   }
 })
 </script>
