@@ -3,91 +3,59 @@
     <span :class="[spanClasses, state]">{{ label }}</span>
     <input 
       :class="['input', state]" 
-      :type="type" 
-      :id="id" 
-      :value="modelValue" 
+      :type="props.type" 
+      :id="props.id" 
+      :value="props.modelValue" 
       @focus="focusInput"
       @blur="blurInput"
       @input="onInput($event.target.value)"
       autocomplete
     >
-    <p v-if="hasError" class="message">{{ message }}</p>
+    <p v-if="hasError" class="message">{{ props.message }}</p>
   </label>
 </template>
 
-<script lang="ts">
-import { Options, Vue } from 'vue-class-component'
+<script lang="ts" setup>
+import { withDefaults, defineProps, defineEmits, computed, ref } from 'vue'
 import { StatusType } from './types'
 
-
-@Options({
-  props: {
-    id: String,
-    label: String,
-    type: {
-      type: String,
-      default: 'text'
-    },
-    message: {
-      type: String,
-      required: false
-    },
-    status: {
-      type: String,
-      required: false,
-      default: StatusType.Default,
-      validator(value: StatusType) {
-        return [StatusType.Default, StatusType.Error].includes(value)
-      }
-    },
-    modelValue: {
-      type: String,
-    }
-  },
-  emits: ['update:modelValue']
-})
-export default class Input extends Vue {
-  public label?: string
-  public type!: string
-  public modelValue!: string
-  public status!: StatusType
-  public message?: string 
-
-  private active = false
-
-  get spanClasses() {
-    return  { 
-      'active': this.active,
-    }
-  }
-  
-  get state() {
-   return {
-     [StatusType.Default]: '',
-     [StatusType.Error]: 'error',
-    }[this.status]
-  } 
-
-  get hasError() {
-    return this.status === StatusType.Error
-  }
-
-  public focusInput() {
-    this.active = true
-  }
-
-  public blurInput() {
-    this.active = this.modelValue ? true : false
-  }
-
-  public onInput(value: string) {
-    this.$emit('update:modelValue', value)
-  }
-
-  mounted() {
-    if (this.modelValue) this.active = true
-  }
+interface Props {
+  id?: string,
+  label?: string,
+  type?: string,
+  message: string,
+  status?: StatusType,
+  modelValue?: string
 }
+
+const props = withDefaults(defineProps<Props>(), {
+  type: 'text',
+  label: 'Label text',
+  status: StatusType.Default
+})
+
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: string): string
+}>()
+
+if (props.modelValue) active.value = true
+
+const active = ref<boolean>(false)
+
+const spanClasses = computed(() => ({ 'active': active.value }))
+
+const state = computed(() => {
+  return {
+    [StatusType.Default]: '',
+    [StatusType.Error]: 'error',
+  }[props.status]
+})
+
+const hasError = computed((): boolean => props.status === StatusType.Error)
+
+const focusInput = (): void => active.value = true
+const blurInput = (): void => active.value = props.modelValue ? true : false
+const onInput = (value: string): void => emit('update:modelValue', value)
 </script>
 
 <style lang="less" scoped>
