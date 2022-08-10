@@ -43,14 +43,12 @@ if (props.modelValue) active.value = true
 const active = ref<boolean>(false)
 
 const spanClasses = computed(() => ({ 'active': active.value }))
-
 const state = computed(() => {
   return {
     [StatusType.Default]: '',
     [StatusType.Error]: 'error',
   }[props.status]
 })
-
 const hasError = computed((): boolean => props.status === StatusType.Error)
 
 const focusInput = (): void => active.value = true
