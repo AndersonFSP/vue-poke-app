@@ -1,6 +1,9 @@
 <template>
-  <button class="google-button" @click="loginWithGoogle">
-    <img src="@/assets/google.png" alt="">
+  <button 
+    class="google-button"
+    @click="loginWithGoogle"
+  >
+    <img src="@/assets/google.png">
   </button>
 </template>
 

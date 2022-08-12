@@ -1,7 +1,10 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld :msg="context.counter"/>
+    <img
+      alt="Vue logo"
+      src="../assets/logo.png"
+    >
+    <HelloWorld :msg="context.counter" />
   </div>
 </template>
 
@@ -12,8 +15,8 @@ import { ref } from 'vue'
 
 @Options({
   components: {
-    HelloWorld,
-  },
+    HelloWorld
+  }
 })
 export default class HomeView extends Vue {
   private context = setup(() => {

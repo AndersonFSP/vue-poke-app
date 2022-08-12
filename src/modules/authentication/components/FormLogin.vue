@@ -1,24 +1,29 @@
 <template>
   <form @submit.prevent="submitValidation">
     <h1>Login</h1>
-    <Input 
-      v-model="email" 
+    <Input
+      id="email"
+      v-model="email"
       label="Email"
       type="email"
-      id="email"
       message="Informe o email"
       :status="inputStatus.email"
     />
-    <Input 
-      v-model="password" 
-      type="password" 
-      label="Senha" 
+    <Input
       id="password"
+      v-model="password"
+      type="password"
+      label="Senha"
       message="Informe a senha"
       :status="inputStatus.password"
     />
-    <Button label="login"/>
-    <h4 class="login-error" v-if="loginError">Email ou senha inválidos</h4>
+    <Button label="login" />
+    <h4
+      v-if="loginError"
+      class="login-error"
+    >
+      Email ou senha inválidos
+    </h4>
   </form>
 </template>
 
@@ -40,7 +45,7 @@ const password = ref<string>('')
 const errors = ref<string[]>([])
 const loginError = ref<boolean>(false)
 
-const login = async ():Promise<void> => {
+const login = async (): Promise<void> => {
   try {
     await store.login(email.value, password.value)
     router.push({ name: 'home' })
@@ -50,24 +55,28 @@ const login = async ():Promise<void> => {
   }
 }
 
-const submitValidation = async () =>  {
+const submitValidation = async () => {
   loginError.value = false
   try {
-    await schema.validate({ 
-      email: email.value, 
-      password: password.value
-    }, { abortEarly: false })
+    await schema.validate(
+      {
+        email: email.value,
+        password: password.value
+      },
+      { abortEarly: false }
+    )
     login()
     errors.value = []
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     errors.value = err.inner.map((err: any) => err.path)
   }
 }
 
 const inputStatus = computed(() => {
-  const hasError = (field: string) => (errors.value.includes(field) ? StatusType.Error : null)
+  const hasError = (field: string) =>
+    errors.value.includes(field) ? StatusType.Error : null
   return {
     email: hasError('email'),
     password: hasError('password')
@@ -76,22 +85,22 @@ const inputStatus = computed(() => {
 </script>
 
 <style lang="less" scoped>
-  .login-error {
-    color: #f00000;
-    margin-top: 5px;
-    position: relative;
-    text-align: left;
-  }
+.login-error {
+  color: #f00000;
+  margin-top: 5px;
+  position: relative;
+  text-align: left;
+}
 
-  h1 {
-    text-align: center;
-    margin-bottom: 30px;
-  }
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
 
-  form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    margin: 180px auto 100px auto;
-  }
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 180px auto 100px auto;
+}
 </style>
