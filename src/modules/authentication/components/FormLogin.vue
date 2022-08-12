@@ -18,12 +18,7 @@
       :status="inputStatus.password"
     />
     <Button label="login" />
-    <h4
-      v-if="loginError"
-      class="login-error"
-    >
-      Email ou senha inválidos
-    </h4>
+    <h4 v-if="loginError" class="login-error">Email ou senha inválidos</h4>
   </form>
 </template>
 

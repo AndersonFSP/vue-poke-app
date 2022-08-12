@@ -14,17 +14,17 @@ export const useAuthenticationStore = defineStore('authentication', {
 
     async loginWithGoogle(): Promise<void> {
       await FirebaseService.loginWithGoogle()
-      this.toggleAuth() 
+      this.toggleAuth()
     },
 
     async login(email: string, password: string): Promise<void> {
       await FirebaseService.login(email, password)
-      this.toggleAuth() 
+      this.toggleAuth()
     },
 
     verifyIfIsLogged(): void {
       const user = FirebaseService.verifyIfIsLogged()
-      if (user) this.toggleAuth() 
+      if (user) this.toggleAuth()
     }
   }
 })

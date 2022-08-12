@@ -9,7 +9,8 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.meta?.requiresAuth ? true : false
-  if (!FirebaseService.verifyIfIsLogged() && requiresAuth) next({ name: 'login'})
+  if (!FirebaseService.verifyIfIsLogged() && requiresAuth)
+    next({ name: 'login' })
   else next()
 })
 

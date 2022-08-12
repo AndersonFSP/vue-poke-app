@@ -1,9 +1,6 @@
 <template>
-  <button 
-    class="google-button"
-    @click="loginWithGoogle"
-  >
-    <img src="@/assets/google.png">
+  <button class="google-button" @click="loginWithGoogle">
+    <img src="@/assets/google.png" />
   </button>
 </template>
 
@@ -14,7 +11,7 @@ import { useRouter } from 'vue-router'
 const store = useAuthenticationStore()
 const router = useRouter()
 
-const loginWithGoogle = async ():Promise<void> => {
+const loginWithGoogle = async (): Promise<void> => {
   try {
     await store.loginWithGoogle()
     router.push({ name: 'home' })
@@ -43,5 +40,5 @@ const loginWithGoogle = async ():Promise<void> => {
   img {
     width: 40px;
   }
-  }
+}
 </style>

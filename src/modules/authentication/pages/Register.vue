@@ -1,26 +1,16 @@
 <template>
-  <form
-    class="home"
-    @submit.prevent="context.register"
-  >
+  <form class="home" @submit.prevent="context.register">
     <h1>{{ context.title }}</h1>
     <div>
-      <input
-        id="email"
-        v-model="context.email"
-        type="email"
-      >
+      <input id="email" v-model="context.email" type="email" />
       <input
         id="password"
         v-model="context.password"
         type="password"
-        autocomplete=""
-      >
+        autocomplete
+      />
     </div>
-    <input
-      type="submit"
-      value="enviar"
-    >
+    <input type="submit" value="enviar" />
   </form>
 </template>
 

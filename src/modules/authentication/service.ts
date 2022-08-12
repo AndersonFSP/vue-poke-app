@@ -1,4 +1,10 @@
-import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, UserCredential, User } from 'firebase/auth'
+import {
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+  UserCredential,
+  User
+} from 'firebase/auth'
 import { firebaseAuth } from '@/firebase'
 
 export default {
@@ -6,7 +12,7 @@ export default {
     const provider = new GoogleAuthProvider()
     return signInWithPopup(firebaseAuth, provider)
   },
-  login(email: string, password: string): Promise<UserCredential>  {
+  login(email: string, password: string): Promise<UserCredential> {
     return signInWithEmailAndPassword(firebaseAuth, email, password)
   },
   verifyIfIsLogged(): User | null {

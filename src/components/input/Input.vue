@@ -10,11 +10,8 @@
       @focus="focusInput"
       @blur="blurInput"
       @input="onInput($event.target.value)"
-    >
-    <p
-      v-if="hasError"
-      class="message"
-    >{{ props.message }}</p>
+    />
+    <p v-if="hasError" class="message">{{ props.message }}</p>
   </label>
 </template>
 
