@@ -25,7 +25,7 @@ export default class Register extends Vue {
   private context = setup(() => {
     const title = ref<string>('Register (work in progress)')
     const email = ref<string>('')
-    const password = ref<string>("")
+    const password = ref<string>('')
 
     const register = async () => {
       try {
