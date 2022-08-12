@@ -9,7 +9,7 @@
       <router-link :to="{ name: 'pokemons' }">Pokemons Module</router-link>
     </div>
   </nav> -->
-  <router-view/>
+  <router-view />
 </template>
 <script lang="ts">
 import { Options, setup, Vue } from 'vue-class-component'
@@ -20,7 +20,7 @@ import { useAuthenticationStore } from '@/modules/authentication/store'
 export default class App extends Vue {
   private context = setup(() => {
     const store = useAuthenticationStore()
-    
+
     store.verifyIfIsLogged()
     const isUserLogged = computed(() => store.isUserLogged)
 

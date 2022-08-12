@@ -1,33 +1,23 @@
 <template>
-  <button class="google-button" @click="context.loginWithGoogle">
-    <img src="@/assets/google.png" alt="">
+  <button class="google-button" @click="loginWithGoogle">
+    <img src="@/assets/google.png" />
   </button>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { useAuthenticationStore } from '@/modules/authentication/store'
-import { Options, Vue, setup } from 'vue-class-component'
 import { useRouter } from 'vue-router'
 
-@Options({})
-export default class GoogleButton extends Vue {
-  private context = setup(() => {
-    const store = useAuthenticationStore()
-    const router = useRouter()
+const store = useAuthenticationStore()
+const router = useRouter()
 
-    const loginWithGoogle = async ():Promise<void> => {
-      try {
-        await store.loginWithGoogle()
-        router.push({ name: 'home' })
-      } catch (error) {
-        console.error(error)
-      }
-    }
-
-    return { 
-      loginWithGoogle 
-    }
-  })
+const loginWithGoogle = async (): Promise<void> => {
+  try {
+    await store.loginWithGoogle()
+    router.push({ name: 'home' })
+  } catch (error) {
+    console.error(error)
+  }
 }
 </script>
 
@@ -50,5 +40,5 @@ export default class GoogleButton extends Vue {
   img {
     width: 40px;
   }
-  }
+}
 </style>

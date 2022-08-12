@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import routes from '@/router/modules'
-import { firebaseAuth } from '@/firebase'
+import FirebaseService from '@/modules/authentication/service'
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
@@ -9,7 +9,8 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.meta?.requiresAuth ? true : false
-  if (!firebaseAuth.currentUser && requiresAuth) next({ name: 'login'})
+  if (!FirebaseService.verifyIfIsLogged() && requiresAuth)
+    next({ name: 'login' })
   else next()
 })
 
