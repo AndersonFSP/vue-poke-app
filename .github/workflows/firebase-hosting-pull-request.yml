@@ -34,7 +34,7 @@ jobs:
       - name: Check Lint
         run: yarn lint:check
   
-  unit test:
+  unit_test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -53,7 +53,7 @@ jobs:
       - name: Run tests
         run: yarn test:unit
 
-  build and preview:
+  build_and_preview:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
     runs-on: ubuntu-latest
     steps:
