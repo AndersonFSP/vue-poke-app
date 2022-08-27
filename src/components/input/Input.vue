@@ -15,8 +15,8 @@
   </label>
 </template>
 
-<script lang="ts" setup>
-import { withDefaults, defineProps, defineEmits, computed, ref } from 'vue'
+<script setup lang="ts">
+import { withDefaults, computed, ref } from 'vue'
 import { StatusType } from './types'
 
 interface Props {

@@ -2,7 +2,8 @@ module.exports = {
   root: true,
 
   env: {
-    node: true
+    node: true,
+    'vue/setup-compiler-macros': true
   },
 
   extends: [
@@ -11,6 +12,8 @@ module.exports = {
     '@vue/typescript/recommended',
     'prettier'
   ],
+
+  parser: 'vue-eslint-parser',
 
   plugins: ['prettier'],
 

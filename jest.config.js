@@ -4,6 +4,5 @@ module.exports = {
   clearMocks: true,
   coverageDirectory: 'coverage',
   coverageProvider: 'v8',
-  transformIgnorePatterns: ['/node_modules/'],
-  setupFilesAfterEnv: ['<rootDir>/jest-ts-setup.ts']
+  transformIgnorePatterns: ['/node_modules/']
 }
