@@ -1,17 +1,22 @@
 <template>
   <label :for="id">
-    <span :class="[spanClasses, state]">{{ label }}</span>
+    <span :class="[spanClasses, state]" data-testid="input-label">
+      {{ label }}
+    </span>
     <input
       :id="props.id"
       :class="['input', state]"
       :type="props.type"
       :value="props.modelValue"
       autocomplete
+      data-testid="input"
       @focus="focusInput"
       @blur="blurInput"
       @input="onInput($event.target.value)"
     />
-    <p v-if="hasError" class="message">{{ props.message }}</p>
+    <p v-if="hasError" class="message" data-testid="input-text">
+      {{ props.message }}
+    </p>
   </label>
 </template>
 
