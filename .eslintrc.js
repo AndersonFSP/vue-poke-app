@@ -1,15 +1,22 @@
 module.exports = {
   root: true,
+
   env: {
-    node: true
+    node: true,
+    'vue/setup-compiler-macros': true
   },
+
   extends: [
     'eslint:recommended',
     'plugin:vue/vue3-recommended',
     '@vue/typescript/recommended',
     'prettier'
   ],
+
+  parser: 'vue-eslint-parser',
+
   plugins: ['prettier'],
+
   rules: {
     camelcase: 1,
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
@@ -31,5 +38,17 @@ module.exports = {
       }
     ],
     'prettier/prettier': 'error'
-  }
+  },
+
+  overrides: [
+    {
+      files: [
+        '**/__tests__/*.{j,t}s?(x)',
+        '**/tests/unit/**/*.spec.{j,t}s?(x)'
+      ],
+      env: {
+        jest: true
+      }
+    }
+  ]
 }

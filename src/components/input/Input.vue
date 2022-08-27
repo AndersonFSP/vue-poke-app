@@ -1,29 +1,34 @@
 <template>
   <label :for="id">
-    <span :class="[spanClasses, state]">{{ label }}</span>
+    <span :class="[spanClasses, state]" data-testid="input-label">
+      {{ label }}
+    </span>
     <input
       :id="props.id"
       :class="['input', state]"
       :type="props.type"
       :value="props.modelValue"
       autocomplete
+      data-testid="input"
       @focus="focusInput"
       @blur="blurInput"
       @input="onInput($event.target.value)"
     />
-    <p v-if="hasError" class="message">{{ props.message }}</p>
+    <p v-if="hasError" class="message" data-testid="input-text">
+      {{ props.message }}
+    </p>
   </label>
 </template>
 
-<script lang="ts" setup>
-import { withDefaults, defineProps, defineEmits, computed, ref } from 'vue'
+<script setup lang="ts">
+import { withDefaults, computed, ref } from 'vue'
 import { StatusType } from './types'
 
 interface Props {
   id?: string
   label?: string
   type?: string
-  message: string
+  message?: string
   status?: StatusType
   modelValue?: string
 }
@@ -33,6 +38,7 @@ const props = withDefaults(defineProps<Props>(), {
   type: 'text',
   label: 'Label text',
   modelValue: '',
+  message: '',
   status: StatusType.Default
 })
 
@@ -40,9 +46,9 @@ const emit = defineEmits<{
   (e: 'update:modelValue', value: string): string
 }>()
 
-if (props.modelValue) active.value = true
-
 const active = ref<boolean>(false)
+
+if (props.modelValue) active.value = true
 
 const spanClasses = computed(() => ({ active: active.value }))
 const state = computed(() => {
@@ -53,9 +59,9 @@ const state = computed(() => {
 })
 const hasError = computed((): boolean => props.status === StatusType.Error)
 
-const focusInput = (): void => (active.value = true)
-const blurInput = (): void => (active.value = props.modelValue ? true : false)
-const onInput = (value: string): void => emit('update:modelValue', value)
+const focusInput = () => (active.value = true)
+const blurInput = () => (active.value = props.modelValue ? true : false)
+const onInput = (value: string) => emit('update:modelValue', value)
 </script>
 
 <style lang="less" scoped>
