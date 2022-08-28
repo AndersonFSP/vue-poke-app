@@ -1,5 +1,3 @@
-jest.mock('@/modules/authentication/service', () => ({}))
-
 import { fireEvent, render, screen, waitFor } from '@testing-library/vue'
 import { createTestingPinia } from '@pinia/testing'
 import GoogleLogin from './GoogleLogin.vue'
@@ -20,9 +18,9 @@ const router = createRouter({
   ]
 })
 
-const setup = (stubActions = true) =>
+const setup = () =>
   render(GoogleLogin, {
-    global: { plugins: [createTestingPinia({ stubActions }), router] }
+    global: { plugins: [createTestingPinia(), router] }
   })
 
 describe('GoogleLogin', () => {
@@ -38,7 +36,7 @@ describe('GoogleLogin', () => {
     screen.getByTestId('google-button')
   })
 
-  it('should login with google', async () => {
+  it('should login with google and redirect', async () => {
     jest.spyOn(router, 'push')
     setup()
     const store = useAuthenticationStore()
