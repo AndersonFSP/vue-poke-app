@@ -20,8 +20,8 @@ import FormRegister from '@/modules/authentication/components/FormRegister.vue'
 .wallpaper {
   width: 100%;
   background-size: cover;
-  background-image: url('@/assets/images/login-background.jpg');
-  background-position: left;
+  background-image: url('@/assets/images/register-background.png');
+  background-position: right;
   flex: 1;
 }
 </style>
