@@ -19,6 +19,10 @@
     />
     <Button label="login" />
     <h4 v-if="loginError" class="login-error">Email ou senha inválidos</h4>
+    <p class="create-account-link">
+      Não tem uma conta?
+      <Link link="/authentication/register"> Registre-se aqui</Link>
+    </p>
   </form>
 </template>
 
@@ -26,6 +30,7 @@
 import { ref, computed } from 'vue'
 import Input from '@/components/input/Input.vue'
 import Button from '@/components/button/Button.vue'
+import Link from '@/components/link/Link.vue'
 
 import { useAuthenticationStore } from '@/modules/authentication/store'
 import { useRouter } from 'vue-router'
@@ -97,5 +102,9 @@ form {
   display: flex;
   flex-direction: column;
   margin: 180px auto 100px auto;
+}
+.create-account-link {
+  margin-top: 15px;
+  text-align: right;
 }
 </style>

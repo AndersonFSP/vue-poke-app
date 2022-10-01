@@ -5,7 +5,8 @@ import { IUser } from './types'
 
 export const useAuthenticationStore = defineStore('authentication', {
   state: (): IAuthenticationState => ({
-    isUserLogged: false
+    isUserLogged: false,
+    user: null
   }),
 
   actions: {
@@ -29,7 +30,10 @@ export const useAuthenticationStore = defineStore('authentication', {
 
     verifyIfIsLogged(): void {
       const user = FirebaseService.verifyIfIsLogged()
-      if (user) this.toggleAuth()
+      if (user) {
+        this.toggleAuth()
+        this.user = user
+      }
     }
   }
 })
