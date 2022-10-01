@@ -8,7 +8,7 @@
 .wallpaper {
   width: 100%;
   background-size: cover;
-  background-image: url('@/assets/login-background.jpg');
+  background-image: url('@/assets/images/login-background.jpg');
   background-position: left;
   flex: 1;
 }

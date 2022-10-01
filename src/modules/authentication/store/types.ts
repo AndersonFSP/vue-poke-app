@@ -3,6 +3,7 @@ export interface IAuthenticationState {
 }
 
 export interface IUser {
+  name?: string
   email: string
   password: string
 }
