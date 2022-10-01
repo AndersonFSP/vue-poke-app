@@ -1,10 +1,12 @@
 import { defineStore } from 'pinia'
 import { IAuthenticationState } from './types'
 import FirebaseService from '@/modules/authentication/service'
+import { IUser } from './types'
 
 export const useAuthenticationStore = defineStore('authentication', {
   state: (): IAuthenticationState => ({
-    isUserLogged: false
+    isUserLogged: false,
+    user: null
   }),
 
   actions: {
@@ -22,9 +24,16 @@ export const useAuthenticationStore = defineStore('authentication', {
       this.toggleAuth()
     },
 
+    async register(user: IUser) {
+      await FirebaseService.register(user)
+    },
+
     verifyIfIsLogged(): void {
       const user = FirebaseService.verifyIfIsLogged()
-      if (user) this.toggleAuth()
+      if (user) {
+        this.toggleAuth()
+        this.user = user
+      }
     }
   }
 })

@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <WallpaperLogin />
-    <section class="login-form">
+    <section class="authentication-form">
       <FormLogin />
       <GoogleLogin />
     </section>
@@ -15,20 +15,9 @@ import WallpaperLogin from '@/modules/authentication/components/WallpaperLogin.v
 </script>
 
 <style lang="less" scoped>
-@background-color: #f0f0f0;
+@import '@/modules/authentication/assets/styles';
 
 .login {
   display: flex;
-}
-
-.login-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  max-width: 500px;
-  min-height: 100vh;
-  background-color: @background-color;
-  padding: clamp(35px, 8%, 70px);
 }
 </style>

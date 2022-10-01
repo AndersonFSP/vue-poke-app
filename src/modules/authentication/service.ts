@@ -3,9 +3,12 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   UserCredential,
-  User
+  User,
+  createUserWithEmailAndPassword,
+  updateProfile
 } from 'firebase/auth'
 import { firebaseAuth } from '@/firebase'
+import { IUser } from './store/types'
 
 export default {
   loginWithGoogle(): Promise<UserCredential> {
@@ -14,6 +17,14 @@ export default {
   },
   login(email: string, password: string): Promise<UserCredential> {
     return signInWithEmailAndPassword(firebaseAuth, email, password)
+  },
+  async register({ email, password, name }: IUser) {
+    const userCredential = await createUserWithEmailAndPassword(
+      firebaseAuth,
+      email,
+      password
+    )
+    await updateProfile(userCredential.user, { displayName: name })
   },
   verifyIfIsLogged(): User | null {
     return firebaseAuth.currentUser

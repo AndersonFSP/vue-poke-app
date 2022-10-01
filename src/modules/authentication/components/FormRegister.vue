@@ -1,9 +1,16 @@
 <template>
   <form @submit.prevent="submitValidation">
-    <h1>Login</h1>
+    <h1>Cadastro</h1>
+    <Input
+      id="nome"
+      v-model="form.name"
+      label="Nome"
+      message="Informe o nome"
+      :status="inputStatus.name"
+    />
     <Input
       id="email"
-      v-model="email"
+      v-model="form.email"
       label="Email"
       type="email"
       message="Informe o email"
@@ -11,46 +18,42 @@
     />
     <Input
       id="password"
-      v-model="password"
+      v-model="form.password"
       type="password"
       label="Senha"
       message="Informe a senha"
       :status="inputStatus.password"
     />
-    <Button label="login" />
-    <h4 v-if="loginError" class="login-error">Email ou senha inválidos</h4>
-    <p class="create-account-link">
-      Não tem uma conta?
-      <Link link="/authentication/register"> Registre-se aqui</Link>
-    </p>
+    <Button label="Criar" />
   </form>
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from 'vue'
+import { ref, computed, reactive } from 'vue'
 import Input from '@/components/input/Input.vue'
 import Button from '@/components/button/Button.vue'
-import Link from '@/components/link/Link.vue'
-
+import { StatusType } from '@/components/input/types'
+import { schema } from '@/modules/authentication/pages/register/validation'
 import { useAuthenticationStore } from '@/modules/authentication/store'
 import { useRouter } from 'vue-router'
-import { schema } from '@/modules/authentication/pages/login/validation'
-import { StatusType } from '@/components/input/types'
 
 const store = useAuthenticationStore()
 const router = useRouter()
 
-const email = ref<string>('')
-const password = ref<string>('')
+const form = reactive({
+  name: '',
+  email: '',
+  password: ''
+})
+
 const errors = ref<string[]>([])
 const loginError = ref<boolean>(false)
 
-const login = async (): Promise<void> => {
+const register = async () => {
   try {
-    await store.login(email.value, password.value)
-    router.push({ name: 'home' })
+    await store.register(form)
+    router.push({ name: 'login' })
   } catch (error) {
-    loginError.value = true
     console.error(error)
   }
 }
@@ -58,14 +61,8 @@ const login = async (): Promise<void> => {
 const submitValidation = async () => {
   loginError.value = false
   try {
-    await schema.validate(
-      {
-        email: email.value,
-        password: password.value
-      },
-      { abortEarly: false }
-    )
-    login()
+    await schema.validate(form, { abortEarly: false })
+    register()
     errors.value = []
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
@@ -78,6 +75,7 @@ const inputStatus = computed(() => {
   const hasError = (field: string) =>
     errors.value.includes(field) ? StatusType.Error : null
   return {
+    name: hasError('name'),
     email: hasError('email'),
     password: hasError('password')
   }
@@ -85,26 +83,14 @@ const inputStatus = computed(() => {
 </script>
 
 <style lang="less" scoped>
-.login-error {
-  color: #f00000;
-  margin-top: 5px;
-  position: relative;
-  text-align: left;
-}
-
-h1 {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
 form {
   width: 100%;
   display: flex;
   flex-direction: column;
   margin: 180px auto 100px auto;
 }
-.create-account-link {
-  margin-top: 15px;
-  text-align: right;
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
 }
 </style>

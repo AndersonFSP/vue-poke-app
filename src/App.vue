@@ -1,14 +1,4 @@
 <template>
-  <!-- <nav>
-    <div v-if="!context.isUserLogged">
-      <router-link :to="{ name: 'login' }">Login</router-link> /
-      <router-link :to="{ name: 'register'}">Register</router-link>
-    </div>
-    <div v-else>
-      <router-link  to="/">Home</router-link> /
-      <router-link :to="{ name: 'pokemons' }">Pokemons Module</router-link>
-    </div>
-  </nav> -->
   <router-view />
 </template>
 <script lang="ts">

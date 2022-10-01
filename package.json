@@ -20,6 +20,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@pinia/testing": "^0.0.14",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/vue": "^6.6.1",
     "@types/jest": "^27.0.1",
