@@ -51,7 +51,7 @@ jobs:
         run: yarn build
 
       - name: Run tests
-        run: yarn test:unit
+        run: yarn test
 
   build_and_preview:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
