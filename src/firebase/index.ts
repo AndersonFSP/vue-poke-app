@@ -3,13 +3,13 @@ import { getAnalytics } from 'firebase/analytics'
 import { getAuth } from 'firebase/auth'
 
 const firebaseConfig = {
-  apiKey: process.env.VUE_APP_FIREBASE_APIKEY,
-  authDomain: process.env.VUE_APP_FIREBASE_AUTHDOMAIN,
-  projectId: process.env.VUE_APP_FIREBASE_PROJECTID,
-  storageBucket: process.env.VUE_APP_FIREBASE_STORAGEBUCKET,
-  messagingSenderId: process.env.VUE_APP_FIREBASE_MESSAGINGSENDERID,
-  appId: process.env.VUE_APP_FIREBASE_APIID,
-  measurementId: process.env.VUE_APP_FIREBASE_MEASUREMENTID
+  apiKey: import.meta.env.VITE_FIREBASE_APIKEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTHDOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECTID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGEBUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGINGSENDERID,
+  appId: import.meta.env.VITE_FIREBASE_APIID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENTID
 }
 
 // Initialize Firebase
