@@ -25,11 +25,11 @@ const setup = () =>
 
 describe('GoogleLogin', () => {
   beforeEach(() => {
-    jest.spyOn(console, 'error').mockImplementation(() => ({}))
+    vi.spyOn(console, 'error').mockImplementation(() => ({}))
   })
 
   afterEach(() => {
-    ;(console.error as jest.Mock).mockRestore()
+    vi.spyOn(console, 'error').mockRestore()
   })
   it('should render FromLogin', () => {
     setup()
@@ -37,7 +37,7 @@ describe('GoogleLogin', () => {
   })
 
   it('should login with google and redirect', async () => {
-    jest.spyOn(router, 'push')
+    vi.spyOn(router, 'push')
     setup()
     const store = useAuthenticationStore()
     const googleButton = screen.getByTestId('google-button')
@@ -50,7 +50,7 @@ describe('GoogleLogin', () => {
   it('should console error', async () => {
     setup()
     const store = useAuthenticationStore()
-    ;(store.loginWithGoogle as jest.Mock).mockRejectedValueOnce({})
+    vi.spyOn(store, 'loginWithGoogle').mockRejectedValueOnce({})
     const googleButton = screen.getByTestId('google-button')
     await fireEvent.click(googleButton)
 

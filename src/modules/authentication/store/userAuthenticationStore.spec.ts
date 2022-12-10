@@ -1,16 +1,9 @@
-jest.mock('@/modules/authentication/service', () => ({
-  loginWithGoogle: jest.fn().mockResolvedValue({}),
-  login: jest.fn().mockResolvedValue({}),
-  register: jest.fn().mockResolvedValue({}),
-  verifyIfIsLogged: jest.fn().mockReturnValue({ displayName: 'username' })
-}))
+vi.mock('@/modules/authentication/service')
+
+import { User } from 'firebase/auth'
 import { setActivePinia, createPinia } from 'pinia'
 import { useAuthenticationStore } from './index'
 import FirebaseService from '@/modules/authentication/service'
-
-jest.spyOn(FirebaseService, 'loginWithGoogle')
-jest.spyOn(FirebaseService, 'login')
-jest.spyOn(FirebaseService, 'register')
 
 const form = {
   email: 'email',
@@ -49,7 +42,10 @@ describe('Authentication Store', () => {
     expect(FirebaseService.register).toBeCalledWith(form)
   })
 
-  it('should call verifyIfIsLogged nad set user', () => {
+  it('should call verifyIfIsLogged and set user', () => {
+    vi.mocked(FirebaseService.verifyIfIsLogged).mockReturnValue({
+      displayName: 'username'
+    } as User)
     const store = useAuthenticationStore()
     store.verifyIfIsLogged()
     expect(FirebaseService.verifyIfIsLogged).toBeCalled()
