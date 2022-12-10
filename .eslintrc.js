@@ -1,8 +1,10 @@
+/* eslint-disable no-undef */
 module.exports = {
   root: true,
 
   env: {
     es2021: true,
+    browser: true,
     'vue/setup-compiler-macros': true
   },
 
@@ -19,8 +21,8 @@ module.exports = {
 
   rules: {
     camelcase: 1,
-    'no-console': import.meta.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-debugger': import.meta.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    // 'no-console': import.meta.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    // 'no-debugger': import.meta.env.NODE_ENV === 'production' ? 'warn' : 'off',
     '@typescript-eslint/no-unused-vars': 'error',
     'vue/multi-word-component-names': 'off',
     'vue/multiline-html-element-content-newline': 'off',
