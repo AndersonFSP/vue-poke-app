@@ -17,7 +17,7 @@ const router = createRouter({
     }
   ]
 })
-vi.spyOn(router, 'push')
+jest.spyOn(router, 'push')
 const formMock = {
   name: 'Anderson',
   email: 'anfis@hotmail.com',
@@ -29,13 +29,11 @@ const setup = () =>
 
 describe('Register', () => {
   beforeEach(() => {
-    vi.clearAllMocks()
-    vi.spyOn(console, 'error').mockImplementation(() => ({}))
+    jest.spyOn(console, 'error').mockImplementation(() => ({}))
   })
 
   afterEach(() => {
-    vi.mocked(console.error).mockRestore()
-    // ;(console.error as jest.Mock).mockRestore()
+    ;(console.error as jest.Mock).mockRestore()
   })
   it('should render Register', () => {
     setup()
@@ -86,8 +84,7 @@ describe('Register', () => {
   it('should not create User if an error occurs', async () => {
     setup()
     const store = useAuthenticationStore()
-    vi.mocked(store.register).mockRejectedValueOnce({})
-    // ;(store.register as jest.Mock).mockRejectedValueOnce({})
+    ;(store.register as jest.Mock).mockRejectedValueOnce({})
     const inputName = screen.getByLabelText('Nome')
     await fireEvent.update(inputName, formMock.name)
 
@@ -102,7 +99,7 @@ describe('Register', () => {
     await waitFor(() => {
       expect(store.register).toHaveBeenCalledWith(formMock)
     })
-    expect(console.error).toHaveBeenCalled()
     expect(router.push).not.toHaveBeenCalled()
+    expect(console.error).toHaveBeenCalled()
   })
 })

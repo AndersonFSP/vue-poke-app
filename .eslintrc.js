@@ -1,10 +1,8 @@
-/* eslint-disable no-undef */
 module.exports = {
   root: true,
 
   env: {
-    es2021: true,
-    browser: true,
+    node: true,
     'vue/setup-compiler-macros': true
   },
 
@@ -21,14 +19,13 @@ module.exports = {
 
   rules: {
     camelcase: 1,
-    // 'no-console': import.meta.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    // 'no-debugger': import.meta.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     '@typescript-eslint/no-unused-vars': 'error',
     'vue/multi-word-component-names': 'off',
     'vue/multiline-html-element-content-newline': 'off',
     'vue/html-self-closing': 'off',
     semi: ['error', 'never'],
-    'vue/script-setup-uses-vars': 'error',
     'vue/max-attributes-per-line': [
       'error',
       {
